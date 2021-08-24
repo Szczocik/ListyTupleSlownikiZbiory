@@ -1,4 +1,4 @@
-# ListyTupleSlownikiZbiory
+# Prosty system księgowy/magazyn
 Napisz program (accountant.py), który będzie rejestrował operacje na koncie firmy i stan magazynu.
 Program jest wywoływany w następujący sposób:
 a) python accountant.py saldo <int wartosc> <str komentarz>

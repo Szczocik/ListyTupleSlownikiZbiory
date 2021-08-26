@@ -1,10 +1,21 @@
 import sys
-#lista_komend_dozwolonych = sys.argv[1]
-komenda =
-#lista_komend_dozwolonych = ('saldo', 'sprzedaz', 'zakup', 'konto', 'magazyn', 'przeglad')
-#lista_komend_dozwolonych = ('python accountant.py saldo', 'python accountant.py sprzedaz', 'python accountant.py zakup',\n
-#'python accountant.py konto', 'python accountant.py magazyn', 'python accountant.py przeglad')
-#magazyn = {}
 
-while
+ALLOWED_COMMANDS = ('saldo', 'zakup', 'sprzedaz', 'stop') # dozwolone komendy
 
+saldo = 1000.0 # poczatkowe saldo
+store = {
+    'chleb': {'count': 2, 'price': 10.0},
+    'mleko': {'count': 12, 'price': 4.0}
+} # MAGAZYN
+mode = sys.argv[1]
+logs = [] # historia operacji
+
+while True:
+    command = input("Wpisz komendę: ")
+
+    if command not in ALLOWED_COMMANDS:
+        print("Niedozwolona komenda!")
+        continue
+    if command == 'stop':
+        print("Koniec programu!")
+        break

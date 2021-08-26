@@ -1,24 +1,43 @@
-import sys
+ALLOWED_COMMANDS = ('saldo','zakup','sprzedaz','stop') #reprezentuje dozwolone
+saldo = 1000.0 #POCZATKOWE SALDO
+store = {
+    'chleb': {'count': 2, 'price': 10.0},
+    'mleko': {'count': 12, 'price': 4.0}
+}
 
-job_count = int(sys.argv[1])
-workload1 = 0
-workload2 = 0
-workload3 = 0
-for job in range(job_count):
-    print("Podaj liczbę godzin pracy dla zlecenia")
-    job_hours = int(input())
-    if job_hours <= 0:
-        print("Błąd: Nieprawidłowa liczba godzin!")
+while True:
+    command = input('Wpisz komendę: ')
+    if command not in ALLOWED_COMMANDS:
+        print('Niedozwolona komenda!')
+        continue
+    if command == 'stop':
+        print('Koniec programu!')
         break
-    if workload3 < workload1 and workload3 < workload2:
-        workload3 += job_hours
-    elif workload2 < workload1:
-        workload2 += job_hours
-    else:
-        workload1 += job_hours
-print("Najbliży mechanik będzie wolny w ciągu {} dni".format(
-    int((min(workload1, workload2, workload3)+7)  / 8)
-))
-print("Wszyscy mechanicy będą wolni w ciągu {} dni".format(
-    int((max(workload1, workload2, workload3)+7)  / 8)
-))
+
+    if command == 'saldo':
+        amount = float(input('Kwota salda: '))
+        if (amount < 0) and (saldo + amount < 0):
+                print('Nie masz tyle na koncie!')
+                continue
+        saldo = saldo + amount
+    elif command == 'zakup':
+        product_name = imput('Nazwa produktu' )
+        product_count = int(input('Ilość sztuk: '))
+        product_price = float(input('Cena za sztukę: '))
+        product_total_price = product_count * product_price
+        if product_total_price > saldo:
+            print(f'Cena za towary ({product_total_price}') przekracza wartość salda ({saldo})
+            continue
+        else:
+            saldo = saldo - product_total_price
+            if not store.get(product_name):
+                store[product_name] = {'count'}: product_count, 'price': product_price
+            else:
+                store_product_count = store[product_name]['count']
+                store[product_name] = {
+                    'count'}: store_product_count + product_count,
+                    'price': product_price}
+
+print(f'SALDO: {saldo}')
+print(f'MAGAZYN: {store}')
+

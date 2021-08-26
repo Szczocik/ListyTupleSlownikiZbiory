@@ -19,6 +19,7 @@ while True:
     if command == 'stop':
         print("Koniec programu!")
         break
+
     if command == 'saldo':
         amount = float(input("Kwota salda: "))
         if (amount < 0) and (saldo + amount < 0):
@@ -42,7 +43,33 @@ while True:
             else:
                 store_product_count = store[product_name]['count']
                 store[product_name] = {
-                    'count': store_product_count + product_count,
+                    'count': store_product_count+product_count,
                     'price': product_price}
         log = f"Dokonano zakupu produktu: {product_name} w ilości {product_count} sztuk, o cenie jednostkowej {product_price}."
         logs.append(log)
+    elif command == 'sprzedaz':
+        product_name = input(("Nazwa produktu: "))
+        product_count = int(input("Ilość sztuk: "))
+        product_price = float(input("Cena za sztukę: "))
+        if not store.get(product_name):
+            print("Produktu nie ma w magazynie!")
+            continue
+        if store.get(product_name)['count'] < product_count:
+            print("Brak wystarczającej ilości towaru!")
+            continue
+        store[product_name] = {
+            'count': store.get(product_name)['count'] - product_count,
+            'price': product_price
+        }
+        saldo += product_count * product_price
+        if not store.get(product_name)['count']:
+            del store[product_name]
+        log = f"Dokonano sprzedaży produktu: {product_name} w ilości {product_count} sztuk, o cenie jednostkowej {product_price}."
+        logs.append(log)
+
+if mode == 'konto':
+    print(f'SALDO: {saldo}')
+elif mode == 'magazyn':
+    print(f'MAGAZYN: {store}')
+
+print(logs)

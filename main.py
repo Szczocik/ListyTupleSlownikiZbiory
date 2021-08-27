@@ -1,4 +1,4 @@
-
+import sys
 ALLOWED_COMMANDS = ('saldo','zakup','sprzedaz','stop') #reprezentuje dozwolone - niezmienne Tupla
 
 saldo = 1000.0 # Poczatkowe saldo
@@ -7,6 +7,9 @@ store = {
     'chleb': {'count': 2, 'price': 10.0},
     'mleko': {'count': 12, 'price': 4.0}
 }# MAGAZYN
+
+mode = sys.argv[1]
+logs =[]# historia operacji
 
 while True:
     command = input('Wpisz komendę: ')
@@ -23,6 +26,8 @@ while True:
                 print('Nie masz tyle na koncie!')
                 continue
         saldo = saldo + amount
+        log = f"Zmiana salda: {amount}"
+        logs.append(log)
     elif command == 'zakup':
         product_name = input("Nazwa produktu: ")
         product_count = int(input('Ilość sztuk: '))
@@ -40,6 +45,8 @@ while True:
                 store[product_name] = {
                     'count': store_product_count + product_count,
                     'price': product_price}
+        log =f'Dokonano zakupu produktu: {product_name} w ilości {product_count} sztuk, o cenie jednostkowej {product_price}.'
+        logs.append(log)
     elif command == 'sprzedaz':
         product_name = input("Nazwa produktu: ")
         product_count = int(input('Ilość sztuk: '))
@@ -57,11 +64,14 @@ while True:
         saldo += product_count * product_price
         if not store.get(product_name)['count']:
             del store[product_name]
+        log = f'Dokonano sprzedaży produktu {product_name} w ilości {product_count} sztuk, w cenie jednostkowej {product_price}.'
+        logs.append(log)
+if mode == 'konto':
+    print(f'SALDO: {saldo}')
+elif mode == 'magazyn':
+    print(f'MAGAZYN: {store}')
 
+print(logs)
 
-
-
-print(f'SALDO: {saldo}')
-print(f'MAGAZYN: {store}')
 
 

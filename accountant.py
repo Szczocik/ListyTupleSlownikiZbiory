@@ -71,5 +71,9 @@ if mode == 'konto':
     print(f'SALDO: {saldo}')
 elif mode == 'magazyn':
     print(f'MAGAZYN: {store}')
+elif mode == 'przeglad':
+    print(logs)
+
+    #print(f'Sprzedano: {product_name} po cenie {product_price} w liczbie sztuk {product_count}')
 
 print(logs)

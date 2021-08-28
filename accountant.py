@@ -1,7 +1,8 @@
 import sys
 
 ALLOWED_COMMANDS = ('saldo', 'zakup', 'sprzedaz', 'stop') # dozwolone komendy
-
+ALLOWED_MODE = ('saldo', 'sprzedaz', 'zakup', 'konto', 'magazyn', 'przeglad')
+mode = ALLOWED_MODE
 saldo = 1000.0 # poczatkowe saldo
 store = {
     'chleb': {'count': 2, 'price': 10.0},

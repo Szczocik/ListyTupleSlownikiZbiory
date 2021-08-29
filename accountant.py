@@ -59,7 +59,7 @@ while True:
                     'price': product_price}
         purchase = f"Zakupiono: {product_name}, w cenie {product_price} zł, w ilości {product_count} szt."
         purchase_history.append(purchase)
-        log = f"Dokonano zakupu produktu: {product_name} w ilości {product_count} sztuk, o cenie jednostkowej {product_price}."
+        log = f"Dokonano zakupu produktu: {product_name} w ilości {product_count} sztuk, w cenie jednostkowej {product_price} zł."
         logs.append(log)
     elif command == 'sprzedaz':
         product_name = input(("Nazwa produktu: "))

@@ -1,32 +1,43 @@
 import sys
 
-ALLOWED_COMMANDS = ('saldo', 'zakup', 'sprzedaz', 'stop') # dozwolone komendy
+ALLOWED_COMMANDS = ('saldo', 'zakup', 'sprzedaz', 'stop')  # dozwolone komendy
 ALLOWED_MODE = ('saldo', 'sprzedaz', 'zakup', 'konto', 'magazyn', 'przeglad')
 mode = ALLOWED_MODE
-saldo = 1000.0 # poczatkowe saldo
+saldo = 1000.0  # poczatkowe saldo
 store = {
     'chleb': {'count': 2, 'price': 10.0},
     'mleko': {'count': 12, 'price': 4.0}
-} # MAGAZYN
+}  # MAGAZYN
 mode = sys.argv[1]
-logs = [] # historia operacji
+logs = []  # historia operacji
+history_saldo = []
 
 while True:
-    command = input("Wpisz komendę: ")
+    command = input("Wpisz rodzaj operacji (saldo, sprzedaz, zakup, stop): ")
 
     if command not in ALLOWED_COMMANDS:
         print("Niedozwolona komenda!")
         continue
     if command == 'stop':
         print("Koniec programu!")
+        # print(f'LISTA OPERACJI: {logs},')
+        # print(f'MAGAZYN: {store},')
+        # print(f'WARTOŚC SALDA: {saldo}')  # Dorota
         break
 
     if command == 'saldo':
-        amount = float(input("Kwota salda: "))
+        amount = float(input("Kwota wpłaty/wypłaty: "))
         if (amount < 0) and (saldo + amount < 0):
             print("Nie masz środków na koncie!")
             continue
         saldo += amount
+        if amount > 0:
+            cash_deposit = f'{amount} WPŁATA'
+            history_saldo.append(cash_deposit)
+        else:
+            cash_withdrawal = f'{amount} WYPŁATA'
+            history_saldo.append(cash_withdrawal)
+
         log = f"Zmiana saldo o: {amount}"
         logs.append(log)
     elif command == 'zakup':
@@ -68,13 +79,14 @@ while True:
         log = f"Dokonano sprzedaży produktu: {product_name} w ilości {product_count} sztuk, o cenie jednostkowej {product_price}."
         logs.append(log)
 
-if mode == 'konto':
+
+if mode == 'saldo':
+    print(history_saldo)
+elif mode == 'konto':
     print(f'SALDO: {saldo}')
 elif mode == 'magazyn':
     print(f'MAGAZYN: {store}')
 elif mode == 'przeglad':
     print(logs)
-
-    #print(f'Sprzedano: {product_name} po cenie {product_price} w liczbie sztuk {product_count}')
 
 print(logs)

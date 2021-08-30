@@ -10,10 +10,6 @@ store = {
 }  # MAGAZYN
 mode = sys.argv[1]
 logs = []  # historia operacji
-# saldo_history = []  # historia operacji salda
-# sales_history = []  # historia sprzedaży
-# purchase_history = []  # historia zakupu
-
 
 while True:
     command = input("Wpisz rodzaj operacji (saldo, sprzedaz, zakup, stop): ")
@@ -31,12 +27,6 @@ while True:
             print("Nie masz środków na koncie!")
             continue
         saldo += amount
-        # if amount > 0:
-        #     cash_deposit = f'{amount} WPŁATA'
-        #     saldo_history.append(cash_deposit)
-        # elif amount < 0:
-        #     cash_withdrawal = f'{amount} WYPŁATA'
-        #     saldo_history.append(cash_withdrawal)
 
         log = f"Zmiana saldo o: {amount}"
         logs.append(log)
@@ -57,8 +47,6 @@ while True:
                 store[product_name] = {
                     'count': store_product_count+product_count,
                     'price': product_price}
-        # purchase = f"Zakupiono: {product_name}, w cenie {product_price} zł, w ilości {product_count} szt."
-        # purchase_history.append(purchase)
         log = f"Dokonano zakupu produktu: {product_name} w ilości {product_count} sztuk, w cenie jednostkowej {product_price} zł."
         logs.append(log)
     elif command == 'sprzedaz':
@@ -78,13 +66,26 @@ while True:
         saldo += product_count * product_price
         if not store.get(product_name)['count']:
             del store[product_name]
-        # sales = f"Sprzedano: {product_name}, w cenie {product_price} zł, w ilości {product_count} szt."
-        # sales_history.append(sales)
+
         log = f"Dokonano sprzedaży produktu: {product_name} w ilości {product_count} sztuk, o cenie jednostkowej {product_price}."
         logs.append(log)
 
 if mode == 'sprzedaz':
-    print(f'Historia sprzedaży:{sales_history}.')
+    product_name = input(("Nazwa produktu: "))
+    product_price = float(input("Cena za sztukę: "))
+    product_count = int(input("Ilość sztuk: "))
+    if not store.get(product_name):
+        print("Produktu nie ma w magazynie!")
+    if store.get(product_name)['count'] < product_count:
+        print("Brak wystarczającej ilości towaru!")
+    store[product_name] = {
+        'count': store.get(product_name)['count'] - product_count,
+        'price': product_price
+    }
+    saldo += product_count * product_price
+    if not store.get(product_name)['count']:
+        del store[product_name]
+    print(f'Nazwa produktu: {product_name}, cena:{product_price}, ilość: {product_count}.')
 elif mode == 'zakup':
     product_name = input(("Nazwa produktu: "))
     product_price = float(input("Cena za sztukę: "))

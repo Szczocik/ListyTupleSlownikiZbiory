@@ -9,6 +9,7 @@ store = {
     'mleko': {'count': 12, 'price': 4.0}
 }  # MAGAZYN
 
+
 mode = sys.argv[1]
 logs = []  # historia operacjigit
 
@@ -114,7 +115,8 @@ elif mode == 'saldo':
 elif mode == 'konto':
     print(f'SALDO: {saldo}')
 elif mode == 'magazyn':
-    print(f'MAGAZYN: {store}')
+    for key, value in store.items():
+        print(key, value)
 elif mode == 'przeglad':
     print(f'Historia operacji: {logs}.')
 

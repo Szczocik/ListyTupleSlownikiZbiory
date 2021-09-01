@@ -8,8 +8,9 @@ store = {
     'chleb': {'count': 2, 'price': 10.0},
     'mleko': {'count': 12, 'price': 4.0}
 }  # MAGAZYN
+
 mode = sys.argv[1]
-logs = []  # historia operacji
+logs = []  # historia operacjigit
 
 while True:
     command = input("Wpisz rodzaj operacji (saldo, sprzedaz, zakup, stop): ")

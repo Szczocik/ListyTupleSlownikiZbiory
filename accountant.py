@@ -117,7 +117,7 @@ elif mode == 'konto':
     print(f'SALDO: {saldo}')
 elif mode == 'magazyn':
     for key, value in store.items():
-        print(key, value.get('count'))
+        print(f'Towar: {key}, ilość sztuk:', value.get('count'))
 elif mode == 'przeglad':
     print(f'Historia operacji: {logs}.')
 

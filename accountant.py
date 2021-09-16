@@ -3,16 +3,31 @@ import sys
 ALLOWED_MODE = ('saldo', 'sprzedaz', 'zakup', 'konto', 'magazyn', 'przeglad')  # dozwolone komendy wejścia
 ALLOWED_COMMANDS = ('saldo', 'zakup', 'sprzedaz', 'stop')  # dozwolone komendy w programie
 mode = ALLOWED_MODE
-saldo = 1000.0  # poczatkowe saldo
-store = {
-    'chleb': {'count': 2, 'price': 10.0},
-    'mleko': {'count': 12, 'price': 4.0}
-}  # MAGAZYN
+
+saldo = None # poczatkowe saldo
+store = {}  # MAGAZYN
 
 
+file = open('baza_danych.txt', 'r')
+for line in file.readlines():
+    if 'saldo' in line:
+        splitted_line = line.split(':')
+        saldo = float(splitted_line[1])
+
+    else:
+        splitted_line = line.split(';')
+        product_name = splitted_line[0]
+        product_count = splitted_line[1]
+        product_price = splitted_line[2]
+        store[product_name] = {
+            'count': int(product_count),
+            'price': float(product_price),
+        }
+
+file.close()
 
 mode = sys.argv[1]
-logs = []  # historia operacjigit
+logs = []  # historia operacji
 
 while True:
     command = input("Wpisz rodzaj operacji (saldo, sprzedaz, zakup, stop): ")
@@ -21,6 +36,11 @@ while True:
         print("Niedozwolona komenda!")
         continue
     if command == 'stop':
+        file = open('baza_danych.txt', 'w')
+        file.write('saldo:' + str(saldo) + '\n')
+        for product_name, data in store.items():
+            file.write(str(product_name) + ';' + str(data['count']) + ';' + str(data['price']) + '\n')
+        file.close()
         print("Koniec programu!")
         break
 

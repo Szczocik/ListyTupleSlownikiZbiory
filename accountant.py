@@ -7,7 +7,6 @@ mode = ALLOWED_MODE
 saldo = None # poczatkowe saldo
 store = {}  # MAGAZYN
 
-
 file = open('baza_danych.txt', 'r')
 for line in file.readlines():
     if 'saldo' in line:
@@ -27,6 +26,7 @@ for line in file.readlines():
 file.close()
 
 mode = sys.argv[1]
+
 logs = []  # historia operacji
 
 while True:

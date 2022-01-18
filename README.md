@@ -20,11 +20,11 @@ Niezależnie od trybu program zawsze będzie działał w następujący sposób
 
 **sprzedaż:** program pobiera trzy linie: identyfikator produktu (str), cena jednostkowa (int), liczba sztuk (int). Program dodaje do salda cenę jednostkową pomnożoną razy liczbę sztuk. Jeśli na magazynie nie ma wystarczającej liczby sztuk, cena jest ujemna bądź liczba sztuk sprzedanych jest mniejsza od zero program zwraca błąd. Program obniża stan magazynowy zakupionego towaru.
 
-**stop:** program przechodzi do kroku IV
+**stop:** program przechodzi do kroku **IV**
 
 **II.** Program zapamiętuje każdą wprowadzoną linię
 
-**III.** Program wraca do kroku I
+**III.** Program wraca do kroku **I**
 
 **IV.** W zależności od wywołania:
 
